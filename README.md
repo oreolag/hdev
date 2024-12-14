@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center" style="margin-bottom: 0;">
 <img src="https://github.com/oreolag/hdev/blob/main/Hyperion_white-removebg-preview.png" align="center" width="350">
 </p>
 
