@@ -1,5 +1,5 @@
 <p align="center" style="margin-bottom: 0px;">
-  <img src="https://github.com/oreolag/hdev/blob/main/Hyperion_Development-removebg.png" 
+  <img src="https://github.com/oreolag/hdev/blob/main/hdev-removebg.png" 
        align="center" style="width: 800px; height: auto;">
 </p>
 
