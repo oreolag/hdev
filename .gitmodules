@@ -1,3 +1,6 @@
 [submodule "hdev"]
 	path = hdev
 	url = https://github.com/fpgasystems/hdev
+[submodule "external"]
+	path = external
+	url = https://github.com/fpgasystems/hdev
