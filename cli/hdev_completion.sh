@@ -17,6 +17,7 @@ IS_GPU_DEVELOPER="1"
 is_sudo=$($CLI_PATH/common/is_sudo $USER)
 is_vivado_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
 is_network_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
+is_composer_developer="1"
 
 #evaluate integrations
 gpu_enabled=$([ "$IS_GPU_DEVELOPER" = "1" ] && [ "$is_gpu" = "1" ] && echo 1 || echo 0)
@@ -30,6 +31,7 @@ AVED_PROGRAM_FLAGS=( "--device" "--project" "--tag" "--remote" )
 AVED_RUN_FLAGS=( "--config" "--device" "--project" "--tag" )
 GET_INTERFACES_FLAGS=( "--type" )
 HIP_RUN_FLAGS=( "--device" "--project" )
+MODEL_NEW_FLAGS=( "--commit" "--project" "--push" )
 OPENNIC_BUILD_FLAGS=( "--commit" "--project" )
 OPENNIC_NEW_FLAGS=( "--commit" "--project" "--push" )
 OPENNIC_PROGRAM_FLAGS=( "--commit" "--device" "--fec" "--project" "--remote" ) #"--xdp"
@@ -98,6 +100,9 @@ _hdev_completions()
             fi
             if [ "$vivado_enabled" = "1" ]; then
                 commands="${commands} build new"
+            fi
+            if [ "$is_composer_developer" = "1" ]; then
+                commands="${commands} new"
             fi
             if [ ! "$is_nic" = "1" ] && [ "$is_network_developer" = "1" ]; then
                 commands="${commands} new build run"
@@ -178,6 +183,9 @@ _hdev_completions()
                     fi
                     if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ]; then
                         commands="${commands} hip"
+                    fi
+                    if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
+                        commands="${commands} model"
                     fi
                     if [ "$is_build" = "1" ] || [ "$vivado_enabled" = "1" ]; then
                         commands="${commands} opennic"
@@ -365,6 +373,9 @@ _hdev_completions()
                             ;;
                         hip)
                             COMPREPLY=($(compgen -W "--help" -- ${cur}))
+                            ;;
+                        model)
+                            COMPREPLY=($(compgen -W "${MODEL_NEW_FLAGS[*]} --help" -- "${cur}"))
                             ;;
                         opennic)
                             COMPREPLY=($(compgen -W "${OPENNIC_NEW_FLAGS[*]} --help" -- "${cur}"))

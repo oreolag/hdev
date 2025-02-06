@@ -66,6 +66,7 @@ is_nic=$($CLI_PATH/common/is_nic $CLI_PATH $hostname)
 is_sudo=$($CLI_PATH/common/is_sudo $USER)
 is_vivado_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
 is_network_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
+is_composer_developer="1"
 
 #legend
 COLOR_ON1=$($CLI_PATH/common/get_constant $CLI_PATH COLOR_CPU)
@@ -1575,6 +1576,13 @@ new_hip_help() {
   exit
 }
 
+new_model_help() {
+  is_build=$($CLI_PATH/common/is_build $CLI_PATH $hostname)
+  is_gpu=$($CLI_PATH/common/is_gpu $CLI_PATH $hostname)
+  $CLI_PATH/help/new $CLI_PATH $CLI_NAME "model" "0" "0" $is_build "0" $is_gpu "0" $IS_GPU_DEVELOPER "0"
+  exit
+}
+
 new_opennic_help() {
   is_acap=$($CLI_PATH/common/is_acap $CLI_PATH $hostname)
   is_asoc=$($CLI_PATH/common/is_asoc $CLI_PATH $hostname)
@@ -2609,6 +2617,13 @@ case "$command" in
           exit 1
         fi
         $CLI_PATH/new/hip
+        ;;
+      model)
+        #early exit
+        if [ "$is_build" = "0" ] && [ "$is_composer_developer" = "0" ]; then
+            exit 1
+        fi
+        echo "Hola, composer!"
         ;;
       opennic)
         #early exit
