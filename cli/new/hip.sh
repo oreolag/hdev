@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/new/hip.sh
