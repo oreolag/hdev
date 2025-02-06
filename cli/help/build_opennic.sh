@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/help/build_opennic.sh
