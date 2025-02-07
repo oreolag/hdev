@@ -51,7 +51,7 @@ hostname="${url%%.*}"
 AMI_TOOL_PATH="$AVED_TOOLS_PATH/ami_tool"
 DEVICES_LIST="$CLI_PATH/devices_acap_fpga"
 DEVICES_LIST_NETWORKING="$CLI_PATH/devices_network"
-REPO_URL="https://github.com/fpgasystems/$REPO_NAME.git"
+REPO_URL="https://github.com/oreolag/$REPO_NAME.git"
 VIVADO_PATH="$XILINX_TOOLS_PATH/Vivado"
 
 #check on server
@@ -4008,7 +4008,7 @@ case "$command" in
 
         #get update.sh
         cd $UPDATES_PATH
-        git clone $REPO_URL > /dev/null 2>&1 #https://github.com/fpgasystems/hdev.git
+        git clone $REPO_URL > /dev/null 2>&1
 
         #copy update
         sudo mv $UPDATES_PATH/$REPO_NAME/update.sh $HDEV_PATH/update
