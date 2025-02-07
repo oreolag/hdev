@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/program/xdp_detach.sh

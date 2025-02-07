@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/program/aved.sh

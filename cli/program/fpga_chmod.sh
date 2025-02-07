@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/program/fpga_chmod.sh
