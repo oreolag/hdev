@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/new_dialog.sh

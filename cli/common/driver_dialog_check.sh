@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/driver_dialog_check.sh

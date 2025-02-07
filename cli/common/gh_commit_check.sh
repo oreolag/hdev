@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/gh_commit_check.sh

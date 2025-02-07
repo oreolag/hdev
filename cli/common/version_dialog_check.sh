@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/version_dialog_check.sh

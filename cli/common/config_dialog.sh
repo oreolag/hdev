@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/config_dialog.sh

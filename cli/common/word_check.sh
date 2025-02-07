@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/word_check.sh

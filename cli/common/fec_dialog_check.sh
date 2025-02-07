@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/fec_dialog_check.sh

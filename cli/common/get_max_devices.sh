@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/get_max_devices.sh

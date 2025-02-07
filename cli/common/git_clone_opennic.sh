@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/git_clone_opennic.sh

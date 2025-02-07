@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/boot_type_check.sh

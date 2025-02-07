@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/address_to_hex.sh

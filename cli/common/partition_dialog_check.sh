@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/partition_dialog_check.sh

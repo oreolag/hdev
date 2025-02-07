@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/commit_dialog_check.sh

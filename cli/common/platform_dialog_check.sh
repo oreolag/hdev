@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/platform_dialog_check.sh

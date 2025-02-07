@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/get_xclbin_cfg.sh

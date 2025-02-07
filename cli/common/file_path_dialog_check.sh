@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/file_path_dialog_check.sh

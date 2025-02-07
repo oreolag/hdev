@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/print_legend.sh

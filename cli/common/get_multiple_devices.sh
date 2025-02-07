@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/get_multiple_devices.sh

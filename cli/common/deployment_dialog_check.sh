@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/deployment_dialog_check.sh

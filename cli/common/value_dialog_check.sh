@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/value_dialog_check.sh

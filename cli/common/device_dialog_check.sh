@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/device_dialog_check.sh

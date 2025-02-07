@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/target_dialog_check.sh

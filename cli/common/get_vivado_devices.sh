@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/get_vivado_devices.sh

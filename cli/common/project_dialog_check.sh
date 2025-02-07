@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/project_dialog_check.sh

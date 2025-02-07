@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/iface_dialog_check.sh

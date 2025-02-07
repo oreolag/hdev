@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/bitstream_dialog_check.sh

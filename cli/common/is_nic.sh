@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/is_nic.sh

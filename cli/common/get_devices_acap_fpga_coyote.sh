@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/common/get_devices_acap_fpga_coyote.sh
