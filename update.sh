@@ -69,7 +69,6 @@ if [ $update = "1" ]; then
   echo "Hey I am here"
   echo $UPDATES_PATH
   echo $REPO_URL
-  exit
 
   #change to directory
   cd $UPDATES_PATH/$REPO_NAME
@@ -123,6 +122,9 @@ if [ $update = "1" ]; then
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/run
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/set
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/validate
+
+  echo "Hey I am there"
+  exit
 
   #remove old version
   echo "${bold}Removing old version:${normal}"
