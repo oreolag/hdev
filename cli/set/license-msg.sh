@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/set/license-msg.sh
