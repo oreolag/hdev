@@ -66,6 +66,11 @@ if [ $update = "1" ]; then
   cd $UPDATES_PATH
   git clone $REPO_URL
 
+  echo "Hey I am here"
+  echo $UPDATES_PATH
+  echo $REPO_URL
+  exit
+
   #change to directory
   cd $UPDATES_PATH/$REPO_NAME
 
