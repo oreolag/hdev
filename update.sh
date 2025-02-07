@@ -7,13 +7,28 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 #helper functions
+#chmod_x() {
+#    path="$1"
+#    for file in "$path"/*.sh; do
+#        file=$(readlink -f "$file" || echo "$file")
+#        chmod +x "$file"
+#        mv "$file" "${file%.sh}"
+#        #cp "$file" "${file%.sh}"
+#        #chmod +x "${file%.sh}" 
+#    done
+#}
+
 chmod_x() {
     path="$1"
     for file in "$path"/*.sh; do
-        #chmod +x "$file"
-        #mv "$file" "${file%.sh}"
-        cp "$file" "${file%.sh}"
-        chmod +x "${file%.sh}" 
+        resolved_file=$(readlink -f "$file" || echo "$file")  # Resolve symlink, fallback to original
+        if [ -e "$resolved_file" ]; then
+            chmod +x "$resolved_file"
+            mv "$resolved_file" "${file%.sh}"
+        else
+            chmod +x "$file"
+            mv "$file" "${file%.sh}"
+        fi
     done
 }
 
