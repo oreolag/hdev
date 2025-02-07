@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/run/opennic.sh
