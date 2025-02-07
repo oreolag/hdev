@@ -10,25 +10,25 @@ normal=$(tput sgr0)
 #chmod_x() {
 #    path="$1"
 #    for file in "$path"/*.sh; do
-#        file=$(readlink -f "$file" || echo "$file")
+#        if [ -L "$file" ]; then
+#            target=$(readlink -f "$file")
+#            cp -f $target $path/$file
+#        fi
 #        chmod +x "$file"
 #        mv "$file" "${file%.sh}"
-#        #cp "$file" "${file%.sh}"
-#        #chmod +x "${file%.sh}" 
 #    done
 #}
 
 chmod_x() {
     path="$1"
     for file in "$path"/*.sh; do
-        resolved_file=$(readlink -f "$file" || echo "$file")  # Resolve symlink, fallback to original
-        if [ -e "$resolved_file" ]; then
-            chmod +x "$resolved_file"
-            mv "$resolved_file" "${file%.sh}"
-        else
-            chmod +x "$file"
-            mv "$file" "${file%.sh}"
+        if [ -L "$file" ]; then
+            target=$(readlink -f "$file")  # Resolve the symlink to its target
+            cp -f "$target" "$path/$(basename "$file")"  # Copy the target file to the current directory
+            file="$path/$(basename "$file")"  # Update the variable to the copied file
         fi
+        chmod +x "$file"  # Make the file executable
+        mv "$file" "${file%.sh}"  # Remove the .sh extension from the filename
     done
 }
 
