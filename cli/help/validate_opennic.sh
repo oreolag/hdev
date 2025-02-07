@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/help/validate_opennic.sh
