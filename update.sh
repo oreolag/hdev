@@ -12,7 +12,7 @@ chmod_x() {
     for file in "$path"/*.sh; do
         #chmod +x "$file"
         #mv "$file" "${file%.sh}"
-        cp "$target" "${file%.sh}"
+        cp "$file" "${file%.sh}"
         chmod +x "${file%.sh}" 
     done
 }
