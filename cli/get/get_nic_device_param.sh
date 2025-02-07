@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/get/get_nic_device_param.sh

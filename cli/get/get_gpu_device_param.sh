@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/get/get_gpu_device_param.sh
