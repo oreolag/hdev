@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/enable/vivado-msg.sh
