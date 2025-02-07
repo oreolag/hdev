@@ -19,7 +19,7 @@ Moreover, it offers a collection of carefully curated **templates** based on ope
 * [License](#license)
 
 # Hyperion Composer
-Subscribed institutions employees have additional access to **Hyperion Composer,** a graphical interface platform based on MathWorks MATLAB, Simulink, and Model Composer, making it easy to create accelerated applications on Hyperion servers. 
+Employees of subscribed institutions have additional access to **Hyperion Composer,** a graphical interface platform built on MathWorks MATLAB, Simulink, and Model Composer, enabling seamless creation and deployment of accelerated applications on **Hyperion servers.**
 
 # Disclaimer
 
