@@ -37,8 +37,14 @@ normal=$(tput sgr0)
 chmod_x() {
     path="$1"
     for file in "$path"/*.sh; do
-        chmod +x "$file"
-        mv "$file" "${file%.sh}"
+        if [ -L "$file" ]; then
+            cp "$file" "${file}.sh"
+            mv "$file" "${file%.sh}"
+            chmod +x "$file"
+        else
+            chmod +x "$file"
+            mv "$file" "${file%.sh}"
+        fi
     done
 }
 
