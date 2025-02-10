@@ -23,7 +23,9 @@ chmod_x() {
     path="$1"
     for file in "$path"/*.sh; do
         if [ -L "$file" ]; then
+            echo "File is: $file"
             target=$(readlink -f "$file")  # Resolve the symlink to its target
+            echo "Target is: $target"
             cp -f "$target" "$path/$(basename "$file")"  # Copy the target file to the current directory
             file="$path/$(basename "$file")"  # Update the variable to the copied file
         fi
