@@ -22,6 +22,21 @@ chmod_x() {
     done
 }
 
+chmod_x_tcl() {
+    path="$1"
+    for file in "$path"/*.tcl; do
+        if [ -L "$file" ]; then
+            target=$(readlink -f "$file")  # Resolve the absolute path of the target file
+            if [ -f "$target" ]; then
+                rm "$file" 
+                cp -f "$target" "$file"
+            fi
+        fi
+        chmod +x "$file"
+        mv "$file" "${file%.tcl}"
+    done
+}
+
 #early exit
 is_sudo=$($CLI_PATH/common/is_sudo $USER)
 if [ "$is_sudo" = "0" ]; then
@@ -123,6 +138,9 @@ if [ $update = "1" ]; then
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/run
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/set
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/validate
+
+  #manage tcl
+  chmod_x_tcl $UPDATES_PATH/$REPO_NAME/cli/program
 
   #remove old version
   echo "${bold}Removing old version:${normal}"
