@@ -7,33 +7,6 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 #helper functions
-#chmod_x() {
-#    path="$1"
-#    for file in "$path"/*.sh; do
-#        if [ -L "$file" ]; then
-#            target=$(readlink -f "$file")
-#            cp -f $target $path/$file
-#        fi
-#        chmod +x "$file"
-#        mv "$file" "${file%.sh}"
-#    done
-#}
-
-#chmod_x() {
-#    path="$1"
-#    for file in "$path"/*.sh; do
-#        if [ -L "$file" ]; then
-#            echo "File is: $file"
-#            target=$(readlink -f "$file")  # Resolve the symlink to its target
-#            echo "Target is: $target"
-#            cp -f "$target" "$path/$(basename "$file")"  # Copy the target file to the current directory
-#            file="$path/$(basename "$file")"  # Update the variable to the copied file
-#        fi
-#        chmod +x "$file"  # Make the file executable
-#        mv "$file" "${file%.sh}"  # Remove the .sh extension from the filename
-#    done
-#}
-
 chmod_x() {
     path="$1"
     for file in "$path"/*.sh; do
@@ -43,9 +16,6 @@ chmod_x() {
                 rm "$file" 
                 cp -f "$target" "$file"
             fi
-        #else
-        #    chmod +x "$file"
-        #    mv "$file" "${file%.sh}"
         fi
         chmod +x "$file"
         mv "$file" "${file%.sh}"
@@ -101,10 +71,6 @@ if [ $update = "1" ]; then
   cd $UPDATES_PATH
   git clone --recurse-submodules $REPO_URL
 
-  echo "Hey I am here"
-  echo $UPDATES_PATH
-  echo $REPO_URL
-
   #change to directory
   cd $UPDATES_PATH/$REPO_NAME
 
@@ -157,9 +123,6 @@ if [ $update = "1" ]; then
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/run
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/set
   chmod_x $UPDATES_PATH/$REPO_NAME/cli/validate
-
-  echo "Hey I am there"
-  exit
 
   #remove old version
   echo "${bold}Removing old version:${normal}"
