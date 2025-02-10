@@ -40,6 +40,7 @@ chmod_x() {
         if [ -L "$file" ]; then
             target=$(readlink -f "$file")  # Resolve the absolute path of the target file
             if [ -f "$target" ]; then
+                rm "$file" 
                 cp -f "$target" "$file"
             fi
         #else
