@@ -148,12 +148,17 @@ if [ $update = "1" ]; then
   sudo cp -rf $UPDATES_PATH/$REPO_NAME/backup_bitstreams $installation_path/cli/bitstreams
   sleep 1
   #overwrite device related info
+  sudo rm -f $installation_path/cli/devices_acap_fpga
   sudo cp -r $UPDATES_PATH/$REPO_NAME/backup_devices_acap_fpga $installation_path/cli/devices_acap_fpga
+  sudo rm -f $installation_path/cli/devices_gpu
   sudo cp -r $UPDATES_PATH/$REPO_NAME/backup_devices_gpu $installation_path/cli/devices_gpu
+  sudo rm -f $installation_path/cli/devices_network
   sudo cp -r $UPDATES_PATH/$REPO_NAME/backup_devices_network $installation_path/cli/devices_network
+  sudo rm -f $installation_path/cli/platforminfo
   sudo cp -r $UPDATES_PATH/$REPO_NAME/backup_platforminfo $installation_path/cli/platforminfo
   sleep 1
   #overwrite constants
+  sudo rm -rf $installation_path/cli/constants
   sudo cp -r $UPDATES_PATH/$REPO_NAME/backup_constants/* $installation_path/cli/constants
   sleep 1
   echo "Done!"
@@ -170,8 +175,8 @@ if [ $update = "1" ]; then
   sudo mv $installation_path/cli/$CLI_NAME"_completion" /usr/share/bash-completion/completions/$CLI_NAME
   sudo chown root:root /usr/share/bash-completion/completions/$CLI_NAME
 
-  #remove from temporal UPDATES_PATH
-  rm -rf $UPDATES_PATH/$REPO_NAME
+  #remove from temporal UPDATES_PATH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  #rm -rf $UPDATES_PATH/$REPO_NAME
   sleep 1
 
   echo "$REPO_NAME was updated to its latest version ${bold}(commit ID: $remote_commit_id)!${normal}"
