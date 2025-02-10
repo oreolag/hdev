@@ -159,6 +159,7 @@ if [ $update = "1" ]; then
   sleep 1
   #overwrite constants
   sudo rm -rf $installation_path/cli/constants
+  sudo mkdir $installation_path/cli/constants
   sudo cp -r $UPDATES_PATH/$REPO_NAME/backup_constants/* $installation_path/cli/constants
   sleep 1
   echo "Done!"
