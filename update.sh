@@ -38,13 +38,16 @@ chmod_x() {
     path="$1"
     for file in "$path"/*.sh; do
         if [ -L "$file" ]; then
-            cp "$file" "${file}.sh"
-            mv "$file" "${file%.sh}"
-            chmod +x "$file"
-        else
-            chmod +x "$file"
-            mv "$file" "${file%.sh}"
+            target=$(readlink -f "$file")  # Resolve the absolute path of the target file
+            if [ -f "$target" ]; then
+                cp -f "$target" "$file"
+            fi
+        #else
+        #    chmod +x "$file"
+        #    mv "$file" "${file%.sh}"
         fi
+        chmod +x "$file"
+        mv "$file" "${file%.sh}"
     done
 }
 
