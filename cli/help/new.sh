@@ -55,6 +55,9 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
         if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ]; then
         echo -e "   ${bold}${COLOR_ON5}hip${COLOR_OFF}${normal}             - Portable single-source ROCm applications."
         fi
+        if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
+        echo -e "   ${bold}${COLOR_ON2}model${COLOR_OFF}${normal}           - Model-based design project for Hyperion developers."
+        fi
         if [ "$is_build" = "1" ] || [ "$vivado_enabled" = "1" ]; then
         echo -e "   ${bold}${COLOR_ON2}opennic${COLOR_OFF}${normal}         - Smart Network Interface Card (SmartNIC) applications with OpenNIC."
         fi
