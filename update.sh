@@ -33,7 +33,7 @@ chmod_x_tcl() {
             fi
         fi
         chmod +x "$file"
-        mv "$file" "${file%.tcl}"
+        #mv "$file" "${file%.tcl}"
     done
 }
 
