@@ -19,18 +19,26 @@ normal=$(tput sgr0)
 #    done
 #}
 
+#chmod_x() {
+#    path="$1"
+#    for file in "$path"/*.sh; do
+#        if [ -L "$file" ]; then
+#            echo "File is: $file"
+#            target=$(readlink -f "$file")  # Resolve the symlink to its target
+#            echo "Target is: $target"
+#            cp -f "$target" "$path/$(basename "$file")"  # Copy the target file to the current directory
+#            file="$path/$(basename "$file")"  # Update the variable to the copied file
+#        fi
+#        chmod +x "$file"  # Make the file executable
+#        mv "$file" "${file%.sh}"  # Remove the .sh extension from the filename
+#    done
+#}
+
 chmod_x() {
     path="$1"
     for file in "$path"/*.sh; do
-        if [ -L "$file" ]; then
-            echo "File is: $file"
-            target=$(readlink -f "$file")  # Resolve the symlink to its target
-            echo "Target is: $target"
-            cp -f "$target" "$path/$(basename "$file")"  # Copy the target file to the current directory
-            file="$path/$(basename "$file")"  # Update the variable to the copied file
-        fi
-        chmod +x "$file"  # Make the file executable
-        mv "$file" "${file%.sh}"  # Remove the .sh extension from the filename
+        chmod +x "$file"
+        mv "$file" "${file%.sh}"
     done
 }
 
