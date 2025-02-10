@@ -81,7 +81,7 @@ fi
 if [ $update = "1" ]; then
   #checkout
   cd $UPDATES_PATH
-  git clone $REPO_URL
+  git clone --recurse-submodules $REPO_URL
 
   echo "Hey I am here"
   echo $UPDATES_PATH
