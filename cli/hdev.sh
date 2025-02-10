@@ -4011,7 +4011,7 @@ case "$command" in
         git clone $REPO_URL > /dev/null 2>&1
 
         #copy update
-        sudo mv $UPDATES_PATH/$REPO_NAME/update.sh $HDEV_PATH/update
+        sudo mv -f $UPDATES_PATH/$REPO_NAME/update.sh $HDEV_PATH/update
         
         #remove temporal copy
         rm -rf $UPDATES_PATH/$REPO_NAME
