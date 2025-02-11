@@ -56,7 +56,7 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
         echo -e "   ${bold}${COLOR_ON5}hip${COLOR_OFF}${normal}             - Portable single-source ROCm applications."
         fi
         if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
-        echo -e "   ${bold}${COLOR_ON2}model${COLOR_OFF}${normal}           - Model-based design project for Hyperion developers."
+        echo "   ${bold}model${normal}           - Model-based design project for Hyperion developers."
         fi
         if [ "$is_build" = "1" ] || [ "$vivado_enabled" = "1" ]; then
         echo -e "   ${bold}${COLOR_ON2}opennic${COLOR_OFF}${normal}         - Smart Network Interface Card (SmartNIC) applications with OpenNIC."
@@ -65,7 +65,7 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
         echo -e "   ${bold}${COLOR_ON2}vrt${COLOR_OFF}${normal}             - Generates an Alveo V80 RunTime (VRT) project."
         fi
         if [ "$is_nic" = "1" ] && [ "$is_network_developer" = "1" ]; then
-        echo -e "   ${bold}xdp${normal}             - Express Data Path (XDP) networking applications with Extended Berkeley Packet Filter (eBPF)."
+        echo "   ${bold}xdp${normal}             - Express Data Path (XDP) networking applications with Extended Berkeley Packet Filter (eBPF)."
         fi
         echo ""
         echo "   ${bold}-h, --help${normal}      - Help to use this command."
@@ -117,8 +117,8 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
             echo "       ${bold}--push${normal}      - Pushes your OpenNIC project to your GitHub account."
             echo ""
             echo "   ${bold}-h, --help${normal}      - Help to use this command."
-            echo ""
-            $CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME "0" "0" "0" "1" "yes"
+            #echo ""
+            #$CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME "0" "0" "0" "1" "yes"
             echo ""
         fi
     elif [ "$parameter" = "opennic" ]; then
