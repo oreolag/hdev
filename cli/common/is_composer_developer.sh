@@ -18,11 +18,16 @@ if [ "$logged_in" = "0" ]; then
   exit 1
 fi
 
-#check using GitHub CLI
-is_member=$(gh api "/orgs/$organization_name/teams/$team_name/members" --paginate | jq -r '.[].login' | grep -w "$user_name")
+#check on team first
+team_exists=$(gh api "/orgs/$organization_name/teams" --paginate | jq -r '.[].slug' | grep -w "$team_name")
+if [ -z "$team_exists" ]; then
+    echo "0"
+    exit 1
+fi
 
-#return value
-if [ ! $is_member = "" ]; then
+#check on user
+is_member=$(gh api "/orgs/$organization_name/teams/$team_name/members" --paginate | jq -r '.[].login' | grep -w "$user_name")
+if [ ! "$is_member" = "" ]; then
     echo "1"
 else
     echo "0"
