@@ -1,26 +1,28 @@
 #!/bin/bash
 
 user_name=$1
-organization_name=$2
+team_name=$2
+
+#constants
+organization_name="oreolag"
 
 if [ "$#" -ne 2 ] ; then
     echo ""
-    echo "$0: exactly 2 arguments expected. Example: ./group_member_check jmoyapaya vivado_developers"
+    echo "$0: exactly 2 arguments expected. Example: ./is_composer_developer jmoya82 ETHZ"
     exit
 fi
 
-#check if group exists
-if [ $(getent group $organization_name) ]; then
-  #the group exists
-  echo "" >&/dev/null
-else
-  echo ""
-  echo "The group $organization_name does not exist."
-  echo ""
-  exit
+#gh_check
+logged_in=$($CLI_PATH/common/gh_auth_status)
+if [ "$logged_in" = "0" ]; then 
+  exit 1
 fi
 
-if getent group $organization_name | grep -q "\b${user_name}\b"; then
+#check using GitHub CLI
+is_member=$(gh api "/orgs/$organization_name/teams/$team_name/members" --paginate | jq -r '.[].login' | grep -w "$user_name")
+
+#return value
+if [ ! $is_member = "" ]; then
     echo "1"
 else
     echo "0"
