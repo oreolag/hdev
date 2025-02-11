@@ -19,7 +19,7 @@ if [ "$logged_in" = "0" ]; then
 fi
 
 #check on team first
-team_exists=$(gh api "/orgs/$organization_name/teams" --paginate | jq -r '.[].slug' | grep -w "$team_name")
+team_exists=$(gh api "/orgs/$organization_name/teams" --paginate | jq -r '.[].slug' | grep -i -w "$team_name")
 if [ -z "$team_exists" ]; then
     echo "0"
     exit 1
