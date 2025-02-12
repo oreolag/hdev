@@ -52,11 +52,11 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
         if [ "$is_build" = "1" ] || [ "$vivado_enabled_asoc" = "1" ]; then
         echo -e "   ${bold}${COLOR_ON2}aved${COLOR_OFF}${normal}            - Generates an AMD Versal Example Design (AVED) project."
         fi
+        if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
+        echo "   ${bold}composer${normal}        - Model-based design project for Hyperion developers."
+        fi
         if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ]; then
         echo -e "   ${bold}${COLOR_ON5}hip${COLOR_OFF}${normal}             - Portable single-source ROCm applications."
-        fi
-        if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
-        echo "   ${bold}model${normal}           - Model-based design project for Hyperion developers."
         fi
         if [ "$is_build" = "1" ] || [ "$vivado_enabled" = "1" ]; then
         echo -e "   ${bold}${COLOR_ON2}opennic${COLOR_OFF}${normal}         - Smart Network Interface Card (SmartNIC) applications with OpenNIC."
@@ -89,6 +89,23 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
             $CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME "1" "1" "1" "0" "yes"
             echo ""
         fi
+    elif [ "$parameter" = "composer" ]; then
+        if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
+            echo ""
+            echo "${bold}$CLI_NAME new composer [--help]${normal}"
+            echo ""
+            echo "Model-based design project for Hyperion developers."
+            echo ""
+            echo "FLAGS:"
+            echo "   ${bold}-c, --commit${normal}    - GitHub shell and driver commit IDs (default: ${bold}$ONIC_SHELL_COMMIT,$ONIC_DRIVER_COMMIT${normal})."
+            echo "       ${bold}--project${normal}   - Specifies your OpenNIC project name." 
+            echo "       ${bold}--push${normal}      - Pushes your OpenNIC project to your GitHub account."
+            echo ""
+            echo "   ${bold}-h, --help${normal}      - Help to use this command."
+            #echo ""
+            #$CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME "0" "0" "0" "1" "yes"
+            echo ""
+        fi
     elif [ "$parameter" = "hip" ]; then
         if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ]; then
             echo ""
@@ -102,23 +119,6 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
             echo "   ${bold}-h, --help${normal}      - Help to use this command."
             echo ""
             $CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME "0" "0" "0" "1" "yes"
-            echo ""
-        fi
-    elif [ "$parameter" = "model" ]; then
-        if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
-            echo ""
-            echo "${bold}$CLI_NAME new model [--help]${normal}"
-            echo ""
-            echo "Model-based design project for Hyperion developers."
-            echo ""
-            echo "FLAGS:"
-            echo "   ${bold}-c, --commit${normal}    - GitHub shell and driver commit IDs (default: ${bold}$ONIC_SHELL_COMMIT,$ONIC_DRIVER_COMMIT${normal})."
-            echo "       ${bold}--project${normal}   - Specifies your OpenNIC project name." 
-            echo "       ${bold}--push${normal}      - Pushes your OpenNIC project to your GitHub account."
-            echo ""
-            echo "   ${bold}-h, --help${normal}      - Help to use this command."
-            #echo ""
-            #$CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME "0" "0" "0" "1" "yes"
             echo ""
         fi
     elif [ "$parameter" = "opennic" ]; then

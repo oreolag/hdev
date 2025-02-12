@@ -29,9 +29,9 @@ AVED_BUILD_FLAGS=( "--project" "--tag" )
 AVED_NEW_FLAGS=( "--project" "--push" "--tag" )
 AVED_PROGRAM_FLAGS=( "--device" "--project" "--tag" "--remote" )
 AVED_RUN_FLAGS=( "--config" "--device" "--project" "--tag" )
+COMPOSER_NEW_FLAGS=( "--commit" "--project" "--push" )
 GET_INTERFACES_FLAGS=( "--type" )
 HIP_RUN_FLAGS=( "--device" "--project" )
-MODEL_NEW_FLAGS=( "--commit" "--project" "--push" )
 OPENNIC_BUILD_FLAGS=( "--commit" "--project" )
 OPENNIC_NEW_FLAGS=( "--commit" "--project" "--push" )
 OPENNIC_PROGRAM_FLAGS=( "--commit" "--device" "--fec" "--project" "--remote" ) #"--xdp"
@@ -185,7 +185,7 @@ _hdev_completions()
                         commands="${commands} hip"
                     fi
                     if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
-                        commands="${commands} model"
+                        commands="${commands} composer"
                     fi
                     if [ "$is_build" = "1" ] || [ "$vivado_enabled" = "1" ]; then
                         commands="${commands} opennic"
@@ -374,8 +374,8 @@ _hdev_completions()
                         hip)
                             COMPREPLY=($(compgen -W "--help" -- ${cur}))
                             ;;
-                        model)
-                            COMPREPLY=($(compgen -W "${MODEL_NEW_FLAGS[*]} --help" -- "${cur}"))
+                        composer)
+                            COMPREPLY=($(compgen -W "${COMPOSER_NEW_FLAGS[*]} --help" -- "${cur}"))
                             ;;
                         opennic)
                             COMPREPLY=($(compgen -W "${OPENNIC_NEW_FLAGS[*]} --help" -- "${cur}"))

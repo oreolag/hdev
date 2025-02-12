@@ -1569,17 +1569,17 @@ new_aved_help() {
   exit
 }
 
+new_composer_help() {
+  is_build=$($CLI_PATH/common/is_build $CLI_PATH $hostname)
+  is_gpu=$($CLI_PATH/common/is_gpu $CLI_PATH $hostname)
+  $CLI_PATH/help/new $CLI_PATH $CLI_NAME "composer" "0" "0" $is_build "0" $is_gpu "0" $IS_GPU_DEVELOPER "0"
+  exit
+}
+
 new_hip_help() {
   is_build=$($CLI_PATH/common/is_build $CLI_PATH $hostname)
   is_gpu=$($CLI_PATH/common/is_gpu $CLI_PATH $hostname)
   $CLI_PATH/help/new $CLI_PATH $CLI_NAME "hip" "0" "0" $is_build "0" $is_gpu "0" $IS_GPU_DEVELOPER "0"
-  exit
-}
-
-new_model_help() {
-  is_build=$($CLI_PATH/common/is_build $CLI_PATH $hostname)
-  is_gpu=$($CLI_PATH/common/is_gpu $CLI_PATH $hostname)
-  $CLI_PATH/help/new $CLI_PATH $CLI_NAME "model" "0" "0" $is_build "0" $is_gpu "0" $IS_GPU_DEVELOPER "0"
   exit
 }
 
@@ -2606,6 +2606,13 @@ case "$command" in
         #run
         $CLI_PATH/new/aved --tag $tag_name --project $new_name --push $push_option
         ;;
+      composer)
+        #early exit
+        if [ "$is_build" = "0" ] && [ "$is_composer_developer" = "0" ]; then
+            exit 1
+        fi
+        echo "Hola, composer!"
+        ;;
       hip)
         #early exit
         if [ "$is_build" = "0" ] && [ "$gpu_enabled" = "0" ]; then
@@ -2617,13 +2624,6 @@ case "$command" in
           exit 1
         fi
         $CLI_PATH/new/hip
-        ;;
-      model)
-        #early exit
-        if [ "$is_build" = "0" ] && [ "$is_composer_developer" = "0" ]; then
-            exit 1
-        fi
-        echo "Hola, composer!"
         ;;
       opennic)
         #early exit
