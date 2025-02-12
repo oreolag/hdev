@@ -11,6 +11,9 @@ Based on [ETH Zurich Systems Group hdev,](https://github.com/fpgasystems/hdev) *
 
 Moreover, it offers a collection of carefully curated **templates** based on open-source frameworks, providing **pre-configured projects** that enable developers to quickly address a broader range of acceleration problems and challenges efficiently.
 
+## Hyperion Composer
+Employees of subscribed institutions have additional access to **Hyperion Composer,** a graphical interface platform built on MathWorks MATLAB, Simulink, and Model Composer, enabling seamless creation and deployment of accelerated applications on **Hyperion servers.**
+
 ## Sections
 * [Citation](#citation)
 * [Disclaimer](#disclaimer)
@@ -18,8 +21,7 @@ Moreover, it offers a collection of carefully curated **templates** based on ope
 * [Installation](https://github.com/fpgasystems/hdev_install/?tab=readme-ov-file#installation)
 * [License](#license)
 
-# Hyperion Composer
-Employees of subscribed institutions have additional access to **Hyperion Composer,** a graphical interface platform built on MathWorks MATLAB, Simulink, and Model Composer, enabling seamless creation and deployment of accelerated applications on **Hyperion servers.**
+
 
 # Disclaimer
 
