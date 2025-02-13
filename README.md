@@ -21,8 +21,6 @@ Employees of subscribed institutions have additional access to **Hyperion Compos
 * [Installation](https://github.com/fpgasystems/hdev_install/?tab=readme-ov-file#installation)
 * [License](#license)
 
-
-
 # Disclaimer
 
 * **Hyperion Development (hdev)** software is provided "as is" and without warranty of any kind, express or implied. The authors and maintainers of this repository make no claims regarding the fitness of this software for specific purposes or its compatibility with any particular hardware or software environment.
