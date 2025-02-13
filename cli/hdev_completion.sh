@@ -17,7 +17,7 @@ IS_GPU_DEVELOPER="1"
 is_sudo=$($CLI_PATH/common/is_sudo $USER)
 is_vivado_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
 is_network_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
-is_composer_developer="1"
+is_composer_developer=$($CLI_PATH/common/is_composer_developer)
 
 #evaluate integrations
 gpu_enabled=$([ "$IS_GPU_DEVELOPER" = "1" ] && [ "$is_gpu" = "1" ] && echo 1 || echo 0)

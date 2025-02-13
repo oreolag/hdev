@@ -66,7 +66,7 @@ is_nic=$($CLI_PATH/common/is_nic $CLI_PATH $hostname)
 is_sudo=$($CLI_PATH/common/is_sudo $USER)
 is_vivado_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
 is_network_developer=$($CLI_PATH/common/is_member $USER vivado_developers)
-is_composer_developer="1"
+is_composer_developer=$($CLI_PATH/common/is_composer_developer)
 
 #legend
 COLOR_ON1=$($CLI_PATH/common/get_constant $CLI_PATH COLOR_CPU)
