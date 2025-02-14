@@ -18,10 +18,11 @@ is_vivado_developer=${11}
 is_network_developer=${12}
 
 #check on composer
-is_composer_developer="1"
+is_composer_developer=$($CLI_PATH/common/is_composer_developer)
 
 #constants
 AVED_TAG=$($CLI_PATH/common/get_constant $CLI_PATH AVED_TAG)
+COMPOSER_TAG=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_TAG)
 ONIC_SHELL_COMMIT=$($CLI_PATH/common/get_constant $CLI_PATH ONIC_SHELL_COMMIT)
 ONIC_DRIVER_COMMIT=$($CLI_PATH/common/get_constant $CLI_PATH ONIC_DRIVER_COMMIT)
 VRT_TAG=$($CLI_PATH/common/get_constant $CLI_PATH VRT_TAG)
@@ -97,9 +98,9 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
             echo "Model-based design project for Hyperion developers."
             echo ""
             echo "FLAGS:"
-            echo "   ${bold}-c, --commit${normal}    - GitHub shell and driver commit IDs (default: ${bold}$ONIC_SHELL_COMMIT,$ONIC_DRIVER_COMMIT${normal})."
             echo "       ${bold}--project${normal}   - Specifies your OpenNIC project name." 
             echo "       ${bold}--push${normal}      - Pushes your OpenNIC project to your GitHub account."
+            echo "   ${bold}-t, --tag${normal}       - GitHub tag ID (default: ${bold}$COMPOSER_TAG${normal})."
             echo ""
             echo "   ${bold}-h, --help${normal}      - Help to use this command."
             #echo ""

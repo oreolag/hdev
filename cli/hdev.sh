@@ -19,6 +19,8 @@ AVED_TOOLS_PATH=$($CLI_PATH/common/get_constant $CLI_PATH AVED_TOOLS_PATH)
 AVED_UUID=$($CLI_PATH/common/get_constant $CLI_PATH AVED_UUID)
 AVED_REPO=$($CLI_PATH/common/get_constant $CLI_PATH AVED_REPO)
 BITSTREAMS_PATH="$CLI_PATH/bitstreams"
+COMPOSER_TAG=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_TAG)
+COMPOSER_REPO=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_REPO)
 GITHUB_CLI_PATH=$($CLI_PATH/common/get_constant $CLI_PATH GITHUB_CLI_PATH)
 IS_GPU_DEVELOPER="1"
 MTU_DEFAULT=$($CLI_PATH/common/get_constant $CLI_PATH MTU_DEFAULT)
@@ -2611,7 +2613,72 @@ case "$command" in
         if [ "$is_build" = "0" ] && [ "$is_composer_developer" = "0" ]; then
             exit 1
         fi
-        echo "Hola, composer!"
+        
+        #check on groups
+        vivado_developers_check "$USER"
+        
+        #check on software
+        gh_check "$CLI_PATH"
+
+        #check on flags
+        valid_flags="--project --push -t --tag -h --help"
+        flags_check $command_arguments_flags"@"$valid_flags
+
+        #inputs (split the string into an array)
+        read -r -a flags_array <<< "$flags"
+
+        #check_on_tag
+        tag_found=""
+        tag_name=""
+        if [ "$flags_array" = "" ]; then
+            #commit dialog
+            tag_found="1"
+            tag_name=$COMPOSER_TAG
+        else
+            #github_tag_dialog_check
+            result="$("$CLI_PATH/common/github_tag_dialog_check" "${flags_array[@]}")"
+            tag_found=$(echo "$result" | sed -n '1p')
+            tag_name=$(echo "$result" | sed -n '2p')
+
+            #check if tag_name is empty
+            if [ "$tag_found" = "1" ] && [ "$tag_name" = "" ]; then
+                $CLI_PATH/help/new $CLI_PATH $CLI_NAME "composer" "0" "" $is_build "0" "0" "0" "0"
+                exit
+            fi
+            
+            #check if tag exist
+            exists_tag=$($CLI_PATH/common/gh_tag_check $GITHUB_CLI_PATH $COMPOSER_REPO $tag_name)
+            
+            if [ "$tag_found" = "0" ]; then 
+                tag_name=$COMPOSER_TAG
+            elif [ "$tag_found" = "1" ] && [ "$tag_name" = "" ]; then 
+                $CLI_PATH/help/new $CLI_PATH $CLI_NAME "composer" "0" "" $is_build "0" "0" "0" "0"
+                exit
+            elif [ "$tag_found" = "1" ] && [ "$exists_tag" = "0" ]; then 
+                if [ "$exists_tag" = "0" ]; then
+                  echo ""
+                  echo $CHECK_ON_GH_TAG_ERR_MSG
+                  echo ""
+                  exit 1
+                fi
+            fi
+        fi
+
+        #checks (command line)
+        if [ ! "$flags_array" = "" ]; then
+          new_check "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
+          push_check "$CLI_PATH" "${flags_array[@]}"
+        fi
+
+        #dialogs
+        echo ""
+        echo "${bold}$CLI_NAME $command $arguments (tag ID: $tag_name)${normal}"
+        echo ""
+        new_dialog "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
+        push_dialog  "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
+
+        #run
+        $CLI_PATH/new/composer --tag $tag_name --project $new_name --push $push_option
         ;;
       hip)
         #early exit
