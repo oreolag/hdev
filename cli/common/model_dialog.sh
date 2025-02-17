@@ -29,6 +29,6 @@ else
 fi
 
 # Return values
-echo "$platform_found"
-echo "$platform_name"
+echo "$model_found"
+echo "$model_name"
 echo "$multiple_models"
