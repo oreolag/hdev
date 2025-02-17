@@ -98,6 +98,7 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
             echo "Model-based design project for Hyperion developers."
             echo ""
             echo "FLAGS:"
+            echo "   ${bold}-m, --model${normal}     - Design reference for your application."
             echo "       ${bold}--project${normal}   - Specifies your OpenNIC project name." 
             echo "       ${bold}--push${normal}      - Pushes your OpenNIC project to your GitHub account."
             echo "   ${bold}-t, --tag${normal}       - GitHub tag ID (default: ${bold}$COMPOSER_TAG${normal})."

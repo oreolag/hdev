@@ -29,7 +29,7 @@ AVED_BUILD_FLAGS=( "--project" "--tag" )
 AVED_NEW_FLAGS=( "--project" "--push" "--tag" )
 AVED_PROGRAM_FLAGS=( "--device" "--project" "--tag" "--remote" )
 AVED_RUN_FLAGS=( "--config" "--device" "--project" "--tag" )
-COMPOSER_NEW_FLAGS=( "--project" "--push" "--tag" )
+COMPOSER_NEW_FLAGS=( "--model" "--project" "--push" "--tag" )
 GET_INTERFACES_FLAGS=( "--type" )
 HIP_RUN_FLAGS=( "--device" "--project" )
 OPENNIC_BUILD_FLAGS=( "--commit" "--project" )
@@ -632,6 +632,10 @@ _hdev_completions()
                             remaining_flags=$($CLI_PATH/common/get_remaining_flags "${previous_flags[*]}" "${AVED_NEW_FLAGS[*]}")
                             COMPREPLY=($(compgen -W "${remaining_flags}" -- "${cur}"))
                             ;;
+                        composer)
+                            remaining_flags=$($CLI_PATH/common/get_remaining_flags "${previous_flags[*]}" "${COMPOSER_NEW_FLAGS[*]}")
+                            COMPREPLY=($(compgen -W "${remaining_flags}" -- "${cur}"))
+                            ;;
                         opennic)
                             remaining_flags=$($CLI_PATH/common/get_remaining_flags "${previous_flags[*]}" "${OPENNIC_NEW_FLAGS[*]}")
                             COMPREPLY=($(compgen -W "${remaining_flags}" -- "${cur}"))
@@ -715,6 +719,14 @@ _hdev_completions()
             previous_flags=("${COMP_WORDS[COMP_CWORD-2]}" "${COMP_WORDS[COMP_CWORD-4]}" "${COMP_WORDS[COMP_CWORD-6]}")
 
             case "${COMP_WORDS[COMP_CWORD-8]}" in
+                new)
+                    case "${COMP_WORDS[COMP_CWORD-7]}" in
+                        composer)
+                            remaining_flags=$($CLI_PATH/common/get_remaining_flags "${previous_flags[*]}" "${COMPOSER_NEW_FLAGS[*]}")
+                            COMPREPLY=($(compgen -W "${remaining_flags}" -- "${cur}"))
+                            ;;
+                    esac
+                    ;;
                 program)
                     case "${COMP_WORDS[COMP_CWORD-7]}" in
                         aved)

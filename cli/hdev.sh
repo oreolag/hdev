@@ -19,8 +19,9 @@ AVED_TOOLS_PATH=$($CLI_PATH/common/get_constant $CLI_PATH AVED_TOOLS_PATH)
 AVED_UUID=$($CLI_PATH/common/get_constant $CLI_PATH AVED_UUID)
 AVED_REPO=$($CLI_PATH/common/get_constant $CLI_PATH AVED_REPO)
 BITSTREAMS_PATH="$CLI_PATH/bitstreams"
-COMPOSER_TAG=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_TAG)
+COMPOSER_PATH="$HDEV_PATH/composer"
 COMPOSER_REPO=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_REPO)
+COMPOSER_TAG=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_TAG)
 GITHUB_CLI_PATH=$($CLI_PATH/common/get_constant $CLI_PATH GITHUB_CLI_PATH)
 IS_GPU_DEVELOPER="1"
 MTU_DEFAULT=$($CLI_PATH/common/get_constant $CLI_PATH MTU_DEFAULT)
@@ -193,6 +194,7 @@ CHECK_ON_CONFIG_MSG="${bold}Please, choose your configuration:${normal}"
 CHECK_ON_DEVICE_MSG="${bold}Please, choose your device:${normal}"
 CHECK_ON_NEW_MSG="${bold}Please, type a non-existing name for your project:${normal}"
 CHECK_ON_IFACE_MSG="${bold}Please, choose your interface:${normal}"
+CHECK_ON_MODEL_MSG="${bold}Please, choose your model:${normal}"
 CHECK_ON_PLATFORM_MSG="${bold}Please, choose your platform:${normal}"
 CHECK_ON_PROJECT_MSG="${bold}Please, choose your project:${normal}"
 CHECK_ON_PUSH_MSG="${bold}Would you like to add the project to your GitHub account (y/n)?${normal}"
@@ -213,7 +215,7 @@ CHECK_ON_GH_TAG_ERR_MSG="Please, choose a valid tag ID."
 CHECK_ON_HOSTNAME_ERR_MSG="Sorry, this command is not available on $hostname."
 CHECK_ON_IFACE_ERR_MSG="Please, choose a valid interface name."
 CHECK_ON_IMAGE_ERR_MSG="Your targeted image is missing."
-CHECK_ON_VALUE_ERR_MSG="Please, choose a valid value."
+CHECK_ON_MODEL_ERR_MSG="Please, choose a valid model name."
 CHECK_ON_PLATFORM_ERR_MSG="Please, choose a valid platform name."
 CHECK_ON_PARTITION_ERR_MSG="Please, choose a valid partition index."
 CHECK_ON_PORT_ERR_MSG="Please, choose a valid port index."
@@ -224,6 +226,7 @@ CHECK_ON_REMOTE_ERR_MSG="Please, choose a valid deploy option."
 CHECK_ON_REMOTE_FILE_ERR_MSG="Please, specify an absolute path for remote programming."
 CHECK_ON_REVERT_ERR_MSG="Please, revert your device first."
 CHECK_ON_SUDO_ERR_MSG="Sorry, this command requires sudo capabilities."
+CHECK_ON_VALUE_ERR_MSG="Please, choose a valid value."
 CHECK_ON_VIVADO_ERR_MSG="Please, choose a valid Vivado version."
 CHECK_ON_VIVADO_DEVELOPERS_ERR_MSG="Sorry, this command is not available for $USER."
 CHECK_ON_WORKFLOW_ERR_MSG="Please, program your device first."
@@ -738,6 +741,62 @@ iface_check() {
       exit
   fi
 }
+
+model_dialog() {
+  local CLI_PATH=$1
+  local MODELS_PATH=$2
+  shift 2
+  local flags_array=("$@")
+
+  model_found=""
+  model_name=""
+
+  if [ "$flags_array" = "" ]; then
+    echo $CHECK_ON_MODEL_MSG
+    echo ""
+    result=$($CLI_PATH/common/model_dialog $MODELS_PATH)
+    model_found=$(echo "$result" | sed -n '1p')
+    model_name=$(echo "$result" | sed -n '2p')
+    multiple_models=$(echo "$result" | sed -n '3p')
+    if [[ $multiple_models = "0" ]]; then
+        echo $model_name
+    fi
+    echo ""
+  else
+    model_check "$CLI_PATH" "$MODELS_PATH" "${flags_array[@]}"
+    #forgotten mandatory
+    if [[ $model_found = "0" ]]; then
+        echo $CHECK_ON_MODEL_MSG
+        echo ""
+        result=$($CLI_PATH/common/model_dialog $MODELS_PATH)
+        model_found=$(echo "$result" | sed -n '1p')
+        model_name=$(echo "$result" | sed -n '2p')
+        multiple_models=$(echo "$result" | sed -n '3p')
+        if [[ $multiple_models = "0" ]]; then
+            echo $model_name
+        fi
+        echo ""
+    fi
+  fi
+}
+
+model_check() {
+  local CLI_PATH=$1
+  local MODELS_PATH=$2
+  shift 2
+  local flags_array=("$@")
+  result="$("$CLI_PATH/common/model_dialog_check" "${flags_array[@]}")"
+  model_found=$(echo "$result" | sed -n '1p')
+  model_name=$(echo "$result" | sed -n '2p')    
+  #forbidden combinations
+  if ([ "$model_found" = "1" ] && [ "$model_name" = "" ]) || ([ "$model_found" = "1" ] && [ ! -d "$MODELS_PATH/$model_name" ]); then
+      echo ""
+      echo $CHECK_ON_MODEL_ERR_MSG
+      echo ""
+      exit 1
+  fi
+}
+
 
 new_dialog() {
   local CLI_PATH=$1
@@ -2621,7 +2680,7 @@ case "$command" in
         gh_check "$CLI_PATH"
 
         #check on flags
-        valid_flags="--project --push -t --tag -h --help"
+        valid_flags="-m --model --project --push -t --tag -h --help"
         flags_check $command_arguments_flags"@"$valid_flags
 
         #inputs (split the string into an array)
