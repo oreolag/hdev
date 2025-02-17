@@ -24,6 +24,7 @@ COMPOSER_REPO=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_REPO)
 COMPOSER_TAG=$($CLI_PATH/common/get_constant $CLI_PATH COMPOSER_TAG)
 GITHUB_CLI_PATH=$($CLI_PATH/common/get_constant $CLI_PATH GITHUB_CLI_PATH)
 IS_GPU_DEVELOPER="1"
+MODELS_PATH="$COMPOSER_PATH/models"
 MTU_DEFAULT=$($CLI_PATH/common/get_constant $CLI_PATH MTU_DEFAULT)
 MTU_MAX=$($CLI_PATH/common/get_constant $CLI_PATH MTU_MAX)
 MTU_MIN=$($CLI_PATH/common/get_constant $CLI_PATH MTU_MIN)
@@ -2727,6 +2728,7 @@ case "$command" in
         if [ ! "$flags_array" = "" ]; then
           new_check "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
           push_check "$CLI_PATH" "${flags_array[@]}"
+          model_check "$CLI_PATH" "$MODELS_PATH" "${flags_array[@]}"
         fi
 
         #dialogs
@@ -2734,10 +2736,11 @@ case "$command" in
         echo "${bold}$CLI_NAME $command $arguments (tag ID: $tag_name)${normal}"
         echo ""
         new_dialog "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
+        model_dialog "$CLI_PATH" "$MODELS_PATH" "${flags_array[@]}"
         push_dialog  "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
 
         #run
-        $CLI_PATH/new/composer --tag $tag_name --project $new_name --push $push_option
+        $CLI_PATH/new/composer --tag $tag_name --project $new_name --model $model_name --push $push_option
         ;;
       hip)
         #early exit
