@@ -55,7 +55,7 @@ fi
 #save tag_name
 echo "$tag_name" > $DIR/COMPOSER_TAG
 
-#add template files ()
-cp $HDEV_PATH/$WORKFLOW/$model_name/config_add.sh $DIR/config_add
+#add template files
+cp $HDEV_PATH/$WORKFLOW/models/$model_name/config_add.sh $DIR/config_add
 
 #author: https://github.com/jmoya82 - Oreol 2025
