@@ -62,6 +62,9 @@ cp $HDEV_PATH/$WORKFLOW/models/$model_name/config_delete.sh $DIR/config_delete
 cp $HDEV_PATH/$WORKFLOW/models/$model_name/config_parameters $DIR/config_parameters
 cp -r $HDEV_PATH/$WORKFLOW/models/$model_name/configs $DIR
 
+#copy top slx model
+cp $HDEV_PATH/$WORKFLOW/models/$model_name/my_design.slx $DIR/$model_name.slx
+
 #copy all subfolders
 cp -r "$HDEV_PATH/$WORKFLOW/models/$model_name/"*/ "$DIR/"
 
