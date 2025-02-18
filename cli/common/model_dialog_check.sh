@@ -9,7 +9,7 @@ declare -g model_name=""
 #read flags
 for (( i=0; i<${#flags[@]}; i++ ))
 do
-    if [[ " ${flags[$i]} " =~ " --model " ]] || if [[ " ${flags[$i]} " =~ " -m " ]]; then
+    if [[ " ${flags[$i]} " =~ " --model " ]] || [[ " ${flags[$i]} " =~ " -m " ]]; then
         model_found="1"
         model_idx=$(($i+1))
         model_name=${flags[$model_idx]}
