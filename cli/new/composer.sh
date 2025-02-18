@@ -52,10 +52,42 @@ fi
 #clone repository
 #$CLI_PATH/common/git_clone_hcmp $DIR $tag_name
 
-#save tag_name
+#save tag_name and model_name
 echo "$tag_name" > $DIR/COMPOSER_TAG
+echo "$model_name" > $DIR/MODEL_NAME
 
 #add template files
 cp $HDEV_PATH/$WORKFLOW/models/$model_name/config_add.sh $DIR/config_add
+cp $HDEV_PATH/$WORKFLOW/models/$model_name/config_delete.sh $DIR/config_delete
+cp $HDEV_PATH/$WORKFLOW/models/$model_name/config_parameters $DIR/config_parameters
+cp -r $HDEV_PATH/$WORKFLOW/models/$model_name/configs $DIR
+
+#copy all subfolders
+cp -r "$HDEV_PATH/$WORKFLOW/models/$model_name/"*/ "$DIR/"
+
+#compile files
+chmod +x $DIR/config_add
+chmod +x $DIR/config_delete
+
+#push files
+if [ "$push_option" = "1" ]; then 
+    cd $DIR
+    #update README.md 
+    if [ -e README.md ]; then
+        rm README.md
+    fi
+    echo "# "$new_name >> README.md
+    #add gitignore
+    echo ".DS_Store" >> .gitignore
+    #add, commit, push
+    git add .
+    git commit -m "First commit"
+    git push --set-upstream origin master
+    echo ""
+fi
+
+#print message
+echo "The project ${bold}$DIR${normal} has been created!"
+echo ""
 
 #author: https://github.com/jmoya82 - Oreol 2025
