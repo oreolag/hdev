@@ -1677,29 +1677,15 @@ new_xdp_help() {
 # open ------------------------------------------------------------------------------------------------------------------------
 
 open_help() {
-  echo ""
-  echo "${bold}$CLI_NAME open [arguments [flags]] [--help]${normal}"
-  echo ""
-  echo "Opens a windowed application for user interaction."
-  echo ""
-  echo "ARGUMENTS:"
-  if [ "$is_composer_developer" = "1" ]; then
-  echo "   ${bold}composer${normal}        - Hyperion model-based design graphical interface."
-  fi
-  echo "   ${bold}vivado${normal}          - Vivado Graphical Unit Interface (GUI)."
-  echo ""
-  echo "   ${bold}-h, --help${normal}      - Help to use this command."
-  echo ""
-  #$CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME $is_acap $is_asoc $is_fpga "0"
-  #echo ""
+  $CLI_PATH/help/open $CLI_PATH $CLI_NAME "--help"
   exit
 }
 
 open_composer_help() {
-  if [ ! "$is_build" = "1" ] && [ "$vivado_enabled_asoc" = "1" ]; then
-    $CLI_PATH/help/program_aved $CLI_PATH $CLI_NAME
-    $CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME $is_acap $is_asoc $is_fpga "0" "yes"
-    echo ""
+  if [ "$is_composer_developer" = "1" ]; then
+    $CLI_PATH/help/open $CLI_PATH $CLI_NAME "composer"
+    #$CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME $is_acap $is_asoc $is_fpga "0" "yes"
+    #echo ""
   fi
   exit
 }
