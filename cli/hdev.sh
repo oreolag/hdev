@@ -3069,6 +3069,7 @@ case "$command" in
         vivado_developers_check "$USER"
         
         #check on software
+        vivado_version=$($CLI_PATH/common/get_xilinx_version vivado)
         gh_check "$CLI_PATH"
 
         #check on flags
@@ -3093,13 +3094,11 @@ case "$command" in
         echo ""
         project_dialog "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
 
-        echo "Hola!"
-        echo "project_name: $project_name"
-
-        exit
-
+        #get Ubuntu major version
+        major_version=$(lsb_release -rs | cut -d. -f1)
+        
         #run
-        $CLI_PATH/open/composer --tag $tag_name --project $new_name
+        $CLI_PATH/open/composer --tag $tag_name --project $project_name --version $vivado_version --major $major_version
         ;;
       *)
         open_help
