@@ -30,6 +30,7 @@ AVED_NEW_FLAGS=( "--project" "--push" "--tag" )
 AVED_PROGRAM_FLAGS=( "--device" "--project" "--tag" "--remote" )
 AVED_RUN_FLAGS=( "--config" "--device" "--project" "--tag" )
 COMPOSER_NEW_FLAGS=( "--model" "--project" "--push" "--tag" )
+COMPOSER_OPEN_FLAGS=( "--project" "--tag" )
 GET_INTERFACES_FLAGS=( "--type" )
 HIP_RUN_FLAGS=( "--device" "--project" )
 OPENNIC_BUILD_FLAGS=( "--commit" "--project" )
@@ -398,6 +399,13 @@ _hdev_completions()
                             ;;
                     esac
                     ;;
+                open) 
+                    case ${COMP_WORDS[COMP_CWORD-1]} in
+                        composer)
+                            COMPREPLY=($(compgen -W "${COMPOSER_OPEN_FLAGS[*]} --help" -- "${cur}"))
+                            ;;
+                    esac
+                    ;;
                 program)
                     case ${COMP_WORDS[COMP_CWORD-1]} in
                         aved)
@@ -531,6 +539,14 @@ _hdev_completions()
                             ;;
                         vrt)
                             remaining_flags=$($CLI_PATH/common/get_remaining_flags "${previous_flags[*]}" "${VRT_NEW_FLAGS[*]}")
+                            COMPREPLY=($(compgen -W "${remaining_flags}" -- "${cur}"))
+                            ;;
+                    esac
+                    ;;
+                open)
+                    case "${COMP_WORDS[COMP_CWORD-3]}" in
+                        composer)
+                            remaining_flags=$($CLI_PATH/common/get_remaining_flags "${previous_flags[*]}" "${COMPOSER_OPEN_FLAGS[*]}")
                             COMPREPLY=($(compgen -W "${remaining_flags}" -- "${cur}"))
                             ;;
                     esac

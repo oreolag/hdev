@@ -3078,7 +3078,17 @@ case "$command" in
         #inputs (split the string into an array)
         read -r -a flags_array <<< "$flags"
 
+        #checks (command line)
+        if [ ! "$flags_array" = "" ]; then
+          #commit_check "$CLI_PATH" "$CLI_NAME" "$command" "$arguments" "$GITHUB_CLI_PATH" "$ONIC_SHELL_REPO" "$ONIC_SHELL_COMMIT" "${flags_array[@]}"
+          tag_check "$CLI_PATH" "$CLI_NAME" "$command" "$arguments" "$GITHUB_CLI_PATH" "$COMPOSER_REPO" "$COMPOSER_TAG" "${flags_array[@]}"
+          project_check "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
+        fi
 
+        echo "Hola!"
+        echo "project_name: $project_name"
+
+        exit
 
         #run
         $CLI_PATH/open/composer --tag $tag_name --project $new_name
