@@ -53,7 +53,7 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
         if [ "$is_build" = "1" ] || [ "$vivado_enabled_asoc" = "1" ]; then
         echo -e "   ${bold}${COLOR_ON2}aved${COLOR_OFF}${normal}            - Generates an AMD Versal Example Design (AVED) project."
         fi
-        if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
+        if [ "$is_composer_developer" = "1" ]; then
         echo "   ${bold}composer${normal}        - Model-based design project for Hyperion developers."
         fi
         if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ]; then
@@ -91,7 +91,7 @@ if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1
             echo ""
         fi
     elif [ "$parameter" = "composer" ]; then
-        if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
+        if [ "$is_composer_developer" = "1" ]; then
             echo ""
             echo "${bold}$CLI_NAME new composer [--help]${normal}"
             echo ""

@@ -184,7 +184,7 @@ _hdev_completions()
                     if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ]; then
                         commands="${commands} hip"
                     fi
-                    if [ "$is_build" = "1" ] || [ "$is_composer_developer" = "1" ]; then
+                    if [ "$is_composer_developer" = "1" ]; then
                         commands="${commands} composer"
                     fi
                     if [ "$is_build" = "1" ] || [ "$vivado_enabled" = "1" ]; then

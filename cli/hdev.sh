@@ -1674,6 +1674,37 @@ new_xdp_help() {
   exit
 }
 
+# open ------------------------------------------------------------------------------------------------------------------------
+
+open_help() {
+  echo ""
+  echo "${bold}$CLI_NAME open [arguments [flags]] [--help]${normal}"
+  echo ""
+  echo "Opens a graphical user interface."
+  echo ""
+  echo "ARGUMENTS:"
+  echo "   ${bold}code${normal}            - Visual Studio Code."
+  if [ "$is_composer_developer" = "1" ]; then
+    echo "   ${bold}xdp${normal}             - Programs your XDP/eBPF program on a given device."
+  fi
+  echo "   ${bold}vivado${normal}          - Vivado."
+  echo ""
+  echo "   ${bold}-h, --help${normal}      - Help to use this command."
+  echo ""
+  #$CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME $is_acap $is_asoc $is_fpga "0"
+  #echo ""
+  exit
+}
+
+open_composer_help() {
+  if [ ! "$is_build" = "1" ] && [ "$vivado_enabled_asoc" = "1" ]; then
+    $CLI_PATH/help/program_aved $CLI_PATH $CLI_NAME
+    $CLI_PATH/common/print_legend $CLI_PATH $CLI_NAME $is_acap $is_asoc $is_fpga "0" "yes"
+    echo ""
+  fi
+  exit
+}
+
 # program ------------------------------------------------------------------------------------------------------------------------
 
 program_help() {
@@ -2670,7 +2701,7 @@ case "$command" in
         ;;
       composer)
         #early exit
-        if [ "$is_build" = "0" ] && [ "$is_composer_developer" = "0" ]; then
+        if [ "$is_composer_developer" = "0" ]; then
             exit 1
         fi
         
@@ -3038,6 +3069,22 @@ case "$command" in
       ;;
     esac
     ;;
+  open)
+    case "$arguments" in
+      -h|--help)
+        open_help
+        ;;
+      composer)
+        #early exit
+        if [ "$is_composer_developer" = "0" ]; then
+          exit
+        fi
+        ;;
+      *)
+        open_help
+      ;;
+    esac
+    ;;  
   program)
     case "$arguments" in
       -h|--help)

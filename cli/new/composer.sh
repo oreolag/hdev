@@ -9,11 +9,8 @@ normal=$(tput sgr0)
 #example: /opt/hdev/cli/hdev new composer --tag    2025.1  --project hello_world --model     opennic --push            0
 
 #early exit
-url="${HOSTNAME}"
-hostname="${url%%.*}"
-is_build=$($CLI_PATH/common/is_build $CLI_PATH $hostname)
-is_composer_developer=""
-if [ "$is_build" = "0" ] && [ "$is_composer_developer" = "0" ]; then
+is_composer_developer=$($CLI_PATH/common/is_composer_developer)
+if [ "$is_composer_developer" = "0" ]; then
     exit 1
 fi
 
