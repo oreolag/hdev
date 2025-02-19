@@ -117,7 +117,7 @@ cli_help() {
   if [ "$is_build" = "1" ] || [ "$gpu_enabled" = "1" ] || [ "$vivado_enabled" = "1" ]; then
   echo "    ${bold}new${normal}            - Creates a new project of your choice."
   fi
-  #if [ ! "$is_build" = "1" ] && [ "$vivado_enabled" = "1" ]; then
+  echo "    ${bold}open${normal}           - Opens a windowed application for user interaction."
   if [ ! "$is_build" = "1" ] && { [ "$is_acap" = "1" ] || [ "$is_asoc" = "1" ] || [ "$is_fpga" = "1" ]; }; then
   echo "    ${bold}program${normal}        - Driver and bitstream programming."
   fi
@@ -1680,14 +1680,13 @@ open_help() {
   echo ""
   echo "${bold}$CLI_NAME open [arguments [flags]] [--help]${normal}"
   echo ""
-  echo "Opens a graphical user interface."
+  echo "Opens a windowed application for user interaction."
   echo ""
   echo "ARGUMENTS:"
-  echo "   ${bold}code${normal}            - Visual Studio Code."
   if [ "$is_composer_developer" = "1" ]; then
-    echo "   ${bold}xdp${normal}             - Programs your XDP/eBPF program on a given device."
+  echo "   ${bold}composer${normal}        - Hyperion model-based design graphical interface."
   fi
-  echo "   ${bold}vivado${normal}          - Vivado."
+  echo "   ${bold}vivado${normal}          - Vivado Graphical Unit Interface (GUI)."
   echo ""
   echo "   ${bold}-h, --help${normal}      - Help to use this command."
   echo ""

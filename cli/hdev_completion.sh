@@ -79,7 +79,7 @@ _hdev_completions()
     case ${COMP_CWORD} in
         1)
             #check on server
-            commands="examine get set validate --help --release"
+            commands="examine get open set validate --help --release"
             if [ "$is_acap" = "1" ]; then
                 commands="${commands} build"
             fi
@@ -192,6 +192,16 @@ _hdev_completions()
                     fi
                     if [ "$is_nic" = "1" ] && [ "$is_network_developer" = "1" ]; then
                         commands="${commands} xdp"
+                    fi
+                    commands_array=($commands)
+                    commands_array=($(echo "${commands_array[@]}" | tr ' ' '\n' | sort | uniq))
+                    commands_string=$(echo "${commands_array[@]}")
+                    COMPREPLY=($(compgen -W "${commands_string}" -- ${cur}))
+                    ;;
+                open)
+                    commands="vivado --help"
+                    if [ "$is_composer_developer" = "1" ]; then
+                        commands="${commands} composer"
                     fi
                     commands_array=($commands)
                     commands_array=($(echo "${commands_array[@]}" | tr ' ' '\n' | sort | uniq))
