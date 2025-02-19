@@ -3062,8 +3062,26 @@ case "$command" in
       composer)
         #early exit
         if [ "$is_composer_developer" = "0" ]; then
-          exit
+            exit 1
         fi
+        
+        #check on groups
+        vivado_developers_check "$USER"
+        
+        #check on software
+        gh_check "$CLI_PATH"
+
+        #check on flags
+        valid_flags="-p --project -t --tag -h --help"
+        flags_check $command_arguments_flags"@"$valid_flags
+
+        #inputs (split the string into an array)
+        read -r -a flags_array <<< "$flags"
+
+
+
+        #run
+        $CLI_PATH/open/composer --tag $tag_name --project $new_name
         ;;
       *)
         open_help
