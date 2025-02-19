@@ -3085,6 +3085,14 @@ case "$command" in
           project_check "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
         fi
 
+        #dialogs
+        tag_dialog "$CLI_PATH" "$CLI_NAME" "$MY_PROJECTS_PATH" "$command" "$arguments" "$GITHUB_CLI_PATH" "$COMPOSER_REPO" "$COMPOSER_TAG" "${flags_array[@]}"
+        project_check_empty "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name"
+        echo ""
+        echo "${bold}$CLI_NAME $command $arguments (tag ID: $tag_name)${normal}"
+        echo ""
+        project_dialog "$CLI_PATH" "$MY_PROJECTS_PATH" "$arguments" "$tag_name" "${flags_array[@]}"
+
         echo "Hola!"
         echo "project_name: $project_name"
 
