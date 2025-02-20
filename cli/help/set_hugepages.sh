@@ -1,0 +1,1 @@
+../../submodules/hdev/cli/help/set_hugepages.sh
