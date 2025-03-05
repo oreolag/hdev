@@ -65,6 +65,7 @@ is_build=$($CLI_PATH/common/is_build $CLI_PATH $hostname)
 is_fpga=$($CLI_PATH/common/is_fpga $CLI_PATH $hostname)
 is_gpu=$($CLI_PATH/common/is_gpu $CLI_PATH $hostname)
 is_nic=$($CLI_PATH/common/is_nic $CLI_PATH $hostname)
+is_numa=$($CLI_PATH/common/is_numa $CLI_PATH)
 
 #check on groups
 is_sudo=$($CLI_PATH/common/is_sudo $USER)
@@ -1907,6 +1908,9 @@ set_help() {
     echo "Devices and host configuration."
     echo ""
     echo "ARGUMENTS:"
+    if [ "$is_numa" = "1" ] && [ "$is_vivado_developer" = "1" ]; then
+    echo "   ${bold}balancing${normal}       - Enables or disables NUMA (Non-Uniform Memory Access) balancing."
+    fi
     echo "   ${bold}gh${normal}              - Enables GitHub CLI on your host (default path: ${bold}$GITHUB_CLI_PATH${normal})."
     if [ ! "$is_build" = "1" ] && [ "$is_vivado_developer" = "1" ]; then
     echo "   ${bold}hugepages${normal}       - Sets the number of 2MB or 1G hugepages."
@@ -1924,6 +1928,22 @@ set_help() {
     echo -e "                     ${bold}${COLOR_ON1}NICs${COLOR_OFF}${normal}"
     echo ""
     exit 1
+}
+
+set_balancing_help() {
+  if [ "$is_numa" = "1" ] && [ "$is_vivado_developer" = "1" ]; then
+    echo ""
+    echo "${bold}$CLI_NAME set balancing [--help]${normal}"
+    echo ""
+    echo "Enables or disables NUMA (Non-Uniform Memory Access) balancing."
+    echo ""
+    echo "FLAGS:"
+    echo "   ${bold}-v, --value${normal}     - When set to zero, NUMA balancing is disabled."
+    echo ""
+    echo "   ${bold}-h, --help${normal}      - Help to use this command."
+    echo ""
+  fi
+  exit
 }
 
 set_gh_help() {
@@ -4102,6 +4122,38 @@ case "$command" in
     case "$arguments" in
       -h|--help)
         set_help
+        ;;
+      balancing)
+        #early exit
+        if [ "$is_numa" = "0" ] || [ "$is_vivado_developer" = "0" ]; then
+            exit 1
+        fi
+
+        #check on groups
+        vivado_developers_check "$USER"
+
+        valid_flags="-v --value -h --help"
+        #command_run $command_arguments_flags"@"$valid_flags
+        flags_check $command_arguments_flags"@"$valid_flags
+
+        #inputs (split the string into an array)
+        read -r -a flags_array <<< "$flags"
+
+        #checks (command line)
+        if [ "$flags_array" = "" ]; then
+          set_balancing_help
+        else
+          #value
+          result="$("$CLI_PATH/common/value_dialog_check" "${flags_array[@]}")"
+          value_found=$(echo "$result" | sed -n '1p')
+          value=$(echo "$result" | sed -n '2p')
+
+          #check on value
+          value_check "$CLI_PATH" "0" "1" "balancing" "${flags_array[@]}"
+        fi
+
+        #run
+        $CLI_PATH/set/balancing --value $value
         ;;
       gh)
         if [ "$#" -ne 2 ]; then
