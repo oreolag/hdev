@@ -1972,10 +1972,12 @@ set_gh_help() {
 }
 
 set_hugepages_help() {
-  max_2M=$($CLI_PATH/common/get_max_hugepages "2M")
-  max_1G=$($CLI_PATH/common/get_max_hugepages "1G")
-  $CLI_PATH/help/set_hugepages $CLI_NAME $max_2M $max_1G
-  exit
+  if [ ! "$is_build" = "1" ] && [ "$is_vivado_developer" = "1" ]; then
+    max_2M=$($CLI_PATH/common/get_max_hugepages "2M")
+    max_1G=$($CLI_PATH/common/get_max_hugepages "1G")
+    $CLI_PATH/help/set_hugepages $CLI_NAME $max_2M $max_1G
+    exit
+  fi
 }
 
 set_keys_help() {
