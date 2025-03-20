@@ -175,7 +175,7 @@ _hdev_completions()
                         commands="${commands} bus performance"
                     fi 
                     if [ ! "$is_build" = "1" ] && [ "$is_vivado_developer" = "1" ]; then
-                        commands="${commands} syslog"
+                        commands="${commands} syslog hugepages"
                     fi 
                     commands_array=($commands)
                     commands_array=($(echo "${commands_array[@]}" | tr ' ' '\n' | sort | uniq))
@@ -355,6 +355,9 @@ _hdev_completions()
                             ;;
                         name)
                             COMPREPLY=($(compgen -W "--device --help" -- ${cur}))
+                            ;;
+                        hugepages) 
+                            COMPREPLY=($(compgen -W "--help" -- ${cur}))
                             ;;
                         interfaces)
                             COMPREPLY=($(compgen -W "${GET_INTERFACES_FLAGS[*]} --help" -- "${cur}"))

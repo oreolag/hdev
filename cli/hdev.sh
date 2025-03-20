@@ -1515,6 +1515,11 @@ get_clock_help() {
   exit
 }
 
+get_hugepages_help() {
+  $CLI_PATH/help/get $CLI_PATH $CLI_NAME "hugepages" "-" "-" $is_build "-" "-" "-" $is_vivado_developer
+  exit    
+}
+
 get_ifconfig_help() {
   $CLI_PATH/help/get $CLI_PATH $CLI_NAME "ifconfig" "-" "-" "-" "-" "-" "-" "-"
   exit    
@@ -1910,6 +1915,10 @@ run_opennic_help() {
 # set ------------------------------------------------------------------------------------------------------------------------
 
 set_help() {
+    #legend
+    legend="                     "
+    show_nic="0"
+    #help
     echo ""
     echo "${bold}$CLI_NAME set [arguments [flags]] [--help]${normal}"
     echo ""
@@ -1929,6 +1938,7 @@ set_help() {
     fi
     if [ ! "$is_build" = "1" ] && [ "$is_vivado_developer" = "1" ]; then
     echo -e "   ${bold}${COLOR_ON1}mtu${COLOR_OFF}${normal}             - Sets a valid MTU value to a device."
+    show_nic="1"
     fi
     if [ "$is_gpu" = "1" ]; then
     echo -e "   ${bold}${COLOR_ON5}performance${COLOR_OFF}${normal}     - Change performance level to low, high, or auto."
@@ -1936,7 +1946,17 @@ set_help() {
     echo ""
     echo "   ${bold}-h, --help${normal}      - Help to use this command."
     echo ""
-    echo -e "                     ${bold}${COLOR_ON1}NICs${COLOR_OFF}${normal} ${bold}${COLOR_ON5}GPUs${COLOR_OFF}${normal}"
+    if [ "$show_nic" = "1" ]; then
+      legend="${legend}${bold}${COLOR_ON1}NICs${COLOR_OFF}${normal}"
+    fi
+    if [ "$is_gpu" = "1" ]; then
+      legend="${legend} ${bold}${COLOR_ON5}GPUs${COLOR_OFF}${normal}"
+    fi
+    #print legend
+    if [[ -n "$legend" ]]; then
+      echo -e "$legend"
+      echo ""
+    fi
     echo ""
     exit 1
 }
@@ -2525,6 +2545,15 @@ case "$command" in
         fi
 
         valid_flags="-h --help -d --device"
+        command_run $command_arguments_flags"@"$valid_flags
+        ;;
+      hugepages)
+        #early exit
+        if [ "$is_build" = "1" ] || [ "$is_vivado_developer" = "0" ]; then
+          exit
+        fi
+
+        valid_flags="-h --help"
         command_run $command_arguments_flags"@"$valid_flags
         ;;
       ifconfig)
